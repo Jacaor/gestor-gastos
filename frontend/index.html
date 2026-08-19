@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gestor de Gastos</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <h1>Control de Gastos</h1>
+    <div class="total-chip">
+      <span class="total-label">Total registrado</span>
+      <span id="totalGeneral" class="total-value">RD$ 0.00</span>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+
+  <section class="panel form-panel">
+    <h2 id="formTitulo">Nuevo gasto</h2>
+    <form id="gastoForm">
+      <input type="hidden" id="gastoId" />
+
+      <label for="monto">Monto (RD$)</label>
+      <input type="number" id="monto" step="0.01" min="0.01" required />
+
+      <label for="categoria">Categoria</label>
+      <select id="categoria" required>
+        <option value="">Selecciona una categoria</option>
+        <option value="Comida">Comida</option>
+        <option value="Transporte">Transporte</option>
+        <option value="Vivienda">Vivienda</option>
+        <option value="Salud">Salud</option>
+        <option value="Entretenimiento">Entretenimiento</option>
+        <option value="Educacion">Educacion</option>
+        <option value="Otro">Otro</option>
+      </select>
+
+      <label for="fecha">Fecha</label>
+      <input type="date" id="fecha" required />
+
+      <label for="descripcion">Descripcion</label>
+      <textarea id="descripcion" maxlength="200" rows="3" placeholder="Opcional"></textarea>
+
+      <div class="form-actions">
+        <button type="submit" id="submitBtn" class="btn-primary">Guardar gasto</button>
+        <button type="button" id="cancelBtn" class="btn-secondary hidden">Cancelar</button>
+      </div>
+
+      <p id="formStatus" class="status-msg"></p>
+    </form>
+  </section>
+
+  <section class="panel list-panel">
+    <div class="list-header">
+      <h2>Gastos registrados</h2>
+      <div class="filters">
+        <select id="filtroCategoria">
+          <option value="">Todas las categorias</option>
+          <option value="Comida">Comida</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Vivienda">Vivienda</option>
+          <option value="Salud">Salud</option>
+          <option value="Entretenimiento">Entretenimiento</option>
+          <option value="Educacion">Educacion</option>
+          <option value="Otro">Otro</option>
+        </select>
+        <input type="month" id="filtroMes" />
+        <button id="limpiarFiltros" class="btn-ghost">Limpiar</button>
+      </div>
+    </div>
+
+    <div id="listStatus" class="status-msg"></div>
+
+    <table class="gastos-table">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Categoria</th>
+          <th>Descripcion</th>
+          <th class="align-right">Monto</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="gastosBody"></tbody>
+    </table>
+
+    <p id="emptyState" class="empty-state hidden">Aun no hay gastos registrados. Agrega el primero desde el formulario.</p>
+  </section>
+
+  <section class="panel totales-panel">
+    <h2>Totales por categoria</h2>
+    <div id="totalesCategoria" class="totales-list"></div>
+  </section>
+
+</main>
+
+<div id="confirmModal" class="modal hidden">
+  <div class="modal-box">
+    <p>¿Eliminar este gasto? Esta accion no se puede deshacer.</p>
+    <div class="modal-actions">
+      <button id="confirmCancelar" class="btn-secondary">Cancelar</button>
+      <button id="confirmEliminar" class="btn-danger">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
